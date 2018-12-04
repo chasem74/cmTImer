@@ -18,12 +18,12 @@ import {
 	Feather,
 } from '@expo/vector-icons';
 
-import TimerView from './components/TimerView';
+import TimerScreen from './containers/TimerScreen';
 
 const StatsNavigator = createStackNavigator({
-	stats: TimerView,
+	stats: TimerScreen,
 	new_session: {
-		screen: TimerView,
+		screen: TimerScreen,
 		navigationOptions: {
 		}
 	},
@@ -35,7 +35,7 @@ const StatsNavigator = createStackNavigator({
 
 const MainNavigator = createBottomTabNavigator({
 	timer: {
-		screen: TimerView,
+		screen: TimerScreen,
 		navigationOptions: {
 			title: 'Timer',
 			tabBarIcon: ({tintColor}) => <Entypo size={25} name="stopwatch" color={tintColor}/>
@@ -56,7 +56,7 @@ const MainNavigator = createBottomTabNavigator({
 		}
 	},
 	more: {
-		screen: TimerView,
+		screen: TimerScreen,
 		navigationOptions: {
 			title: 'More',
 			tabBarIcon: ({tintColor}) => <Feather size={25} name="more-horizontal" color={tintColor}/>

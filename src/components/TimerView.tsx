@@ -42,7 +42,7 @@ function useTimerInterval(duration: number, startImmediately: boolean, callback:
 	};
 }
 
-export default () => {
+export default (props) => {
 	const [backgroundColor, setBackgroundColor] = useState(Constants.UI.DEFAULT_TIMER_BACKGROUND_COLOR);
 	const {time, isRunning, resetTimer, startTimer, stopTimer} = useTimerInterval(50, false, () => {
 	});
@@ -79,7 +79,7 @@ export default () => {
 	}
 
 	return (
-		<View style={styles.timerContainer}>
+		<View style={props.style}>
 			<TouchableOpacity
 			style={[styles.timerTextContainer, {backgroundColor: backgroundColor}]}
 			activeOpacity={0.7}
@@ -94,9 +94,6 @@ export default () => {
 };
 
 const styles = StyleSheet.create({
-	timerContainer: {
-		flex: 1
-	},
 	timerTextContainer: {
 		flex: 1,
 		justifyContent: 'center',
@@ -106,6 +103,5 @@ const styles = StyleSheet.create({
 	timerText: {
 		color: 'white',
 		fontSize: 36,
-	//	alignSelf: 'center',
 	},
 });
