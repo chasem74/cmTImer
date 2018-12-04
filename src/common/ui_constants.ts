@@ -1,0 +1,2 @@
+export const DEFAULT_TIMER_BACKGROUND_COLOR = '#f10';
+export const PRESSED_TIMER_BACKGROUND_COLOR = '#0f0';
