@@ -7,40 +7,10 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-import moment from 'moment';
-
 import Constants from '../common/constants';
 
-function useTimerInterval(duration: number, startImmediately: boolean, callback: () => void | undefined | null){
-	const [intervalState, setIntervalState] = useState(startImmediately);
-	const [time, setTime] = useState(0);
-	useEffect(() => {
-		let tmpID: null | number = null;
-		if(intervalState){
-			tmpID = setInterval(() => {
-				setTime(moment.now() - time);
-				callback && callback();
-			}, duration);
-		}
-
-		return () => {
-			if(tmpID){
-				clearInterval(tmpID);
-			}
-		};
-	}, [intervalState]);
-
-	return {
-		isRunning: intervalState,
-		time,
-		startTimer: () => setIntervalState(true),
-		stopTimer: () => setIntervalState(false),
-		resetTimer: () => {
-			setTime(moment.now());
-			setIntervalState(false);
-		}
-	};
-}
+import {useTimerInterval} from '../common/hooks';
+import moment from 'moment';
 
 export default (props) => {
 	const [backgroundColor, setBackgroundColor] = useState(Constants.UI.DEFAULT_TIMER_BACKGROUND_COLOR);

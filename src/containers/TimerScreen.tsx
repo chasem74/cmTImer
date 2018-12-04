@@ -8,8 +8,6 @@ import {
 import TimerView from '../components/TimerView';
 import Scramble from '../components/Scramble';
 
-import * as Constants from '../common/constants';
-
 class TimerScreen extends React.Component{
 
 	constructor(props){
@@ -23,7 +21,7 @@ class TimerScreen extends React.Component{
 
 	componentDidMount(){
 		this.navListener = this.props.navigation.addListener('didFocus', () => {
-			StatusBar.setBarStyle('dark-content');
+			StatusBar.setBarStyle('light-content');
 		});
 	}
 
