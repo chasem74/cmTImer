@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /home/chase/.yarn/bin/yarn.js add react-navigation-header-buttons @types/react-navigation-header-buttons
+  /usr/bin/node /home/chase/.yarn/bin/yarn.js add @types/react-navigation:latest
 
 PATH: 
   /home/chase/Android/Sdk/platform-tools:/home/chase/.yarn/bin:/home/chase/.config/yarn/global/node_modules/.bin:/home/chase/VulkanSDK/1.1.82.1/x86_64/bin:/home/chase/bin:/usr/local/bin:/usr/bin:/home/chase/Android/Sdk:/home/chase/.yarn/bin:/home/chase/.config/yarn/global/node_modules/.bin:/home/chase/VulkanSDK/1.1.82.1/x86_64/bin:/home/chase/bin:/usr/local/bin:/usr/bin:/home/chase/.yarn/bin:/home/chase/.config/yarn/global/node_modules/.bin:/home/chase/VulkanSDK/1.1.82.1/x86_64/bin:/home/chase/bin:/usr/local/bin:/usr/bin:/home/chase/.yarn/bin:/home/chase/.config/yarn/global/node_modules/.bin:/home/chase/VulkanSDK/1.1.82.1/x86_64/bin:/home/chase/bin:/usr/local/bin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2freact-navigation-header-buttons: Not found
+  Error: https://registry.yarnpkg.com/@types%2freact-navigation:latest: Not found
       at Request.params.callback [as _callback] (/home/chase/.yarn/lib/cli.js:65894:18)
       at Request.self.callback (/home/chase/.yarn/lib/cli.js:129018:22)
       at emitTwo (events.js:126:13)
@@ -42,7 +42,8 @@ npm manifest:
       "react": "^16.7.0-alpha.2",
       "react-native": "https://github.com/expo/react-native/archive/sdk-31-with-hooks-dangerzone.tar.gz",
       "react-native-elements": "^0.19.1",
-      "react-navigation": "^3.0.5"
+      "react-navigation": "^3.0.5",
+      "react-navigation-header-buttons": "^2.1.1"
     },
     "devDependencies": {
       "@types/expo": "^31.0.1",
@@ -4771,6 +4772,11 @@ Lockfile:
     version "0.22.1"
     resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
   
+  react-native-platform-touchable@^1.1.1:
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
+    integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
+  
   react-native-reanimated@1.0.0-alpha.10:
     version "1.0.0-alpha.10"
     resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.0-alpha.10.tgz#e9e6fb35a2cf52fdc912b9fbc76f34f80698e530"
@@ -4893,6 +4899,13 @@ Lockfile:
     integrity sha512-P+3FgiYX2iQIkXeYCg7hOfg7u9fYBLWjqb1k6ILxML9VBimPXXM+87/lnIsfkZVOm4FIoH/ZAofbkPa7rYeJcQ==
     dependencies:
       react-native-tab-view "^1.2.0"
+  
+  react-navigation-header-buttons@^2.1.1:
+    version "2.1.1"
+    resolved "https://registry.yarnpkg.com/react-navigation-header-buttons/-/react-navigation-header-buttons-2.1.1.tgz#7f388a3fafd5c9510e144f6dcd5cf0793e27c826"
+    integrity sha512-ZWqwvdOBDduAGr1WpmHWbCMmSx9ZpuKdnFOByt9iOSZwwQwMP2f98rkePAlYXlTcThgaqbpdt7jcktAcG056fA==
+    dependencies:
+      react-native-platform-touchable "^1.1.1"
   
   react-navigation-stack@1.0.4:
     version "1.0.4"

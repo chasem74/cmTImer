@@ -3,7 +3,8 @@ import * as Expo from 'expo';
 import {
 	StyleSheet,
 	View,
-	Text
+	Text,
+	StatusBar
 } from 'react-native';
 
 import {
@@ -11,28 +12,33 @@ import {
 	createStackNavigator
 } from 'react-navigation';
 
-import {createAppContainer} from '@react-navigation/native';
+import {createAppContainer} from '@react-navigation/native'
 
 import {
 	Entypo,
 	FontAwesome,
-	Feather,
-	MaterialIcons
+	Feather
 } from '@expo/vector-icons';
 
 import TimerScreen from './containers/TimerScreen';
 import StatsAndSessionScreen from './containers/StatsAndSessionScreen';
+import NewSessionScreen from './containers/NewSessionScreen';
 
 const StatsNavigator = createStackNavigator({
 	stats: StatsAndSessionScreen,
 	new_session: {
-		screen: TimerScreen,
+		screen: NewSessionScreen,
 		navigationOptions: {
 		}
 	},
 },{
 	mode: 'modal',
-	navigationOptions: {
+	defaultNavigationOptions: {
+		headerBackTitleVisisble: false,
+		headerTintColor: 'white',
+		headerStyle: {
+			backgroundColor: 'black'
+		}
 	}
 });
 
@@ -78,6 +84,7 @@ export default class App extends React.Component {
 	async componentWillMount(){
 		await Expo.Font.loadAsync({
 			'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+			'Feather': require('@expo/vector-icons/fonts/Feather.ttf')
 		});
 	//	await Expo.Font.loadAsync();
 	}
@@ -85,6 +92,7 @@ export default class App extends React.Component {
 	public render() {
 		return (
 			<View style={styles.container}>
+				<StatusBar barStyle="light-content" />
 				<AppContainer style={{flex: 1}} />
 			</View>
 		);

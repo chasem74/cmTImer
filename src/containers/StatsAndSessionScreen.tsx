@@ -14,8 +14,6 @@ import SessionContext from '../context/SessionContext';
 
 import {MaterialHeaderButtons, Item} from '../components/StandardHeaderButton';
 
-import {useStatusBarStyle} from '../common/hooks';
-
 export default class StatsAndSessionScreen extends React.Component{
 
 	static navigationOptions = ({navigation, navigationOptions}) => {
@@ -40,7 +38,7 @@ export default class StatsAndSessionScreen extends React.Component{
 					<Item
 					title="Sessions"
 					color="white"
-					onPress={() => navigation.navigate('new_session')}
+					onPress={() => navigation.navigate('new_session', {...navigation.state.params})}
 					/>
 				</MaterialHeaderButtons>
 			),
@@ -57,6 +55,13 @@ export default class StatsAndSessionScreen extends React.Component{
 			stats: []
 		}
 	};
+
+	componentDidMount(){
+		this.props.navigation.setParams({
+			resetSessionDataToDefault: this.props.resetSessionDataToDefault,
+			currentSession: this.state.currentSession
+		});
+	}
 
 	renderSessionAndStatsView = (session) => {
 		return (
@@ -80,11 +85,7 @@ export default class StatsAndSessionScreen extends React.Component{
 	}
 }
 
-/*const mapStateToProps = (state) => ({
-	currentSession: state.currentSession,
-	allSessions: state.savedSessions
-});
-
+/*
 const mapDispatchToProps = (dispatch) => ({
 	computeNewStats: () => dispatch(actions.computeStatsForCurrentSession()),
 	createNewSession: (name) => dispatch(actions.createNewSession(name)),
