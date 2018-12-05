@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react';
 
 import {
 	StatusBar,
@@ -8,39 +9,16 @@ import {
 import TimerView from '../components/TimerView';
 import Scramble from '../components/Scramble';
 
-class TimerScreen extends React.Component{
+import {useStatusBarStyle} from '../common/hooks';
 
-	constructor(props){
-		super(props);
+export default function TimerScreen(props){
 
-		this.state = {
-			isTiming: false,
-			isReady: false
-		};
-	}
+	const [statusStyle, setStatusStyle] = useStatusBarStyle('light-content');
 
-	componentDidMount(){
-		this.navListener = this.props.navigation.addListener('didFocus', () => {
-			StatusBar.setBarStyle('light-content');
-		});
-	}
-
-	componentWillUnmount(){
-		this.navListener.remove();
-	}
-
-	render(){
-		return (
-			<View style={{flex: 1}}>
-				<Scramble
-				style={{flex: 1}}
-				scramble="R' L U"
-				/>
-
-				<TimerView style={{flex: 3}}/>
-			</View>
-		);
-	}
+	return (
+		<View style={{flex: 1}}>
+			<Scramble style={{flex: 1}} scramble="R' L U" />
+			<TimerView style={{flex: 3}}/>
+		</View>
+	);
 }
-
-export default TimerScreen;

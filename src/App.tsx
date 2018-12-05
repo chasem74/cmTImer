@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Expo from 'expo';
 import {
 	StyleSheet,
 	View,
@@ -16,12 +17,14 @@ import {
 	Entypo,
 	FontAwesome,
 	Feather,
+	MaterialIcons
 } from '@expo/vector-icons';
 
 import TimerScreen from './containers/TimerScreen';
+import StatsAndSessionScreen from './containers/StatsAndSessionScreen';
 
 const StatsNavigator = createStackNavigator({
-	stats: TimerScreen,
+	stats: StatsAndSessionScreen,
 	new_session: {
 		screen: TimerScreen,
 		navigationOptions: {
@@ -72,6 +75,13 @@ const MainNavigator = createBottomTabNavigator({
 const AppContainer = createAppContainer(MainNavigator);
 
 export default class App extends React.Component {
+	async componentWillMount(){
+		await Expo.Font.loadAsync({
+			'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+		});
+	//	await Expo.Font.loadAsync();
+	}
+
 	public render() {
 		return (
 			<View style={styles.container}>

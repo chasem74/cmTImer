@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import moment from 'moment';
 
 export function useTimerInterval(duration: number, startImmediately: boolean, callback: () => void | undefined | null){
@@ -30,4 +31,17 @@ export function useTimerInterval(duration: number, startImmediately: boolean, ca
 			setIntervalState(false);
 		}
 	};
+}
+
+export function useStatusBarStyle(initialStyle: string){
+	const [style, setStyle] = useState(initialStyle);
+	useEffect(() => {
+		StatusBar.setBarStyle(style);
+
+		return () => {
+			StatusBar.setBarStyle(initialStyle);
+		};
+	}, [style]);
+
+	return [style, setStyle];
 }
