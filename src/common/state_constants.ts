@@ -1,3 +1,5 @@
+import * as SessionTypes from './session_types';
+
 export const DEFAULT_SESSION_NAME = 'Default';
 
 const computeMean = (times) => {
@@ -22,7 +24,7 @@ export const DEFAULT_SESSION_STAT_COMPUTE_FUNCS = {
 	}
 };
 
-export const DEFAULT_SESSION_STATE = {
+export const DEFAULT_SESSION_STATE: SessionTypes.Session = {
 	name: DEFAULT_SESSION_NAME,
 	times: [],
 	stats: [
