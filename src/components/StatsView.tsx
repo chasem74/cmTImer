@@ -8,7 +8,7 @@ import {
 
 import moment from 'moment';
 
-const StatsView = ({stats, numTimes}) => {
+export default ({stats, numTimes}) => {
 	return (
 		<View style={{flex: 1}}>
 			<View style={styles.numberOfSolves}>
@@ -29,5 +29,3 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 	},
 });
-
-export default StatsView;

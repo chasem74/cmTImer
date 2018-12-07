@@ -6,7 +6,7 @@ import {
 	View,
 } from 'react-native';
 
-function Scramble(props){
+export default (props) => {
 	return (
 		<View style={[styles.container, props.style]}>
 			<Text style={styles.algorithmText}>{props.scramble}</Text>
@@ -27,5 +27,3 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	}
 });
-
-export default Scramble;

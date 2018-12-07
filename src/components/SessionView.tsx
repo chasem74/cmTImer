@@ -10,7 +10,7 @@ import {ListItem} from 'react-native-elements';
 
 import moment from 'moment';
 
-const SessionView = ({name, times}) => {
+export default ({name, times}) => {
 
 	function createListItemText(item, index){
 		return (index + 1) + '. ' + moment(item.value).format('mm:ss:SS');;
@@ -53,5 +53,3 @@ const styles = StyleSheet.create({
 		padding: 2
 	}
 });
-
-export default SessionView;

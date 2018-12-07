@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import moment from 'moment';
 
-export function useTimerInterval(duration: number, startImmediately: boolean, callback: () => void | undefined | null){
+export const useTimerInterval = (duration: number, startImmediately: boolean, callback: () => void | undefined | null) => {
 	const [intervalState, setIntervalState] = useState(startImmediately);
 	const [time, setTime] = useState(0);
 	useEffect(() => {
@@ -33,7 +33,7 @@ export function useTimerInterval(duration: number, startImmediately: boolean, ca
 	};
 }
 
-export function useStatusBarStyle(initialStyle: string){
+export const useStatusBarStyle = (initialStyle: string) => {
 	const [style, setStyle] = useState(initialStyle);
 	useEffect(() => {
 		StatusBar.setBarStyle(style);
