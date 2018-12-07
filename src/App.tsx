@@ -86,7 +86,6 @@ export default class App extends React.Component {
 			'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
 			'Feather': require('@expo/vector-icons/fonts/Feather.ttf')
 		});
-	//	await Expo.Font.loadAsync();
 	}
 
 	public render() {
