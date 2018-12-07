@@ -17,6 +17,7 @@ import {
 import {MaterialHeaderButtons, Item} from '../components/StandardHeaderButton';
 
 import SessionContext from '../context/SessionContext';
+import * as SessionTypes from '../common/session_types';
 
 export default class NewSessionScreen extends React.Component {
 
@@ -49,11 +50,11 @@ export default class NewSessionScreen extends React.Component {
 	componentDidMount(){
 	}
 
-	setSessionNameInput = newSessionName => {
+	setSessionNameInput = (newSessionName: string) => {
 		this.setState({newSessionName});
 	}
 
-	onSubmitEditing = (sessions) => {
+	onSubmitEditing = (sessions: object) => {
 		const trimmedName = this.state.newSessionName.trim();
 		if(trimmedName !== ""){
 			if(sessions[trimmedName]){
@@ -66,7 +67,7 @@ export default class NewSessionScreen extends React.Component {
 		}
 	}
 
-	onSelectSessionFromList = (selectedSessionName) => {
+	onSelectSessionFromList = (selectedSessionName: string) => {
 		if(this.state.selectedSessionName !== selectedSessionName){
 			this.setState({selectedSessionName});
 		//	this.props.setCurrentSessionByName(selectedSessionName);
@@ -74,7 +75,7 @@ export default class NewSessionScreen extends React.Component {
 		}
 	}
 
-	renderSession = (session) => {
+	renderSession = (session: SessionTypes.Session) => {
 		if(session.name !== this.state.selectedSessionName){
 			return (
 				<ListItem
@@ -96,7 +97,7 @@ export default class NewSessionScreen extends React.Component {
 		}
 	}
 
-	renderSessions = (sessions) => {
+	renderSessions = (sessions: object) => {
 		let result = [];
 		for(var key in sessions){
 			if(sessions.hasOwnProperty(key)){
@@ -107,7 +108,7 @@ export default class NewSessionScreen extends React.Component {
 		return result;
 	}
 
-	renderSessionsList = (sessions) => {
+	renderSessionsList = (sessions: object) => {
 		return (
 			<List>
 				{this.renderSessions(sessions)}
@@ -118,7 +119,7 @@ export default class NewSessionScreen extends React.Component {
 	render(){
 		return(
 			<SessionContext.Consumer>
-			{sessions => (
+			{session => (
 				<SafeAreaView style={{flex: 1}}>
 					<FormInput
 					inputStyle={styles.textInput}
@@ -131,7 +132,7 @@ export default class NewSessionScreen extends React.Component {
 					onSubmitEditing={() => this.onSubmitEditing(sessions)}
 					/>
 
-					{this.renderSessionsList(sessions)}
+					{this.renderSessionsList(session)}
 				</SafeAreaView>
 			)}
 			</SessionContext.Consumer>

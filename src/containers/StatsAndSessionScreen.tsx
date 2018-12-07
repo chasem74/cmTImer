@@ -11,6 +11,7 @@ import SessionView from '../components/SessionView';
 import StatsView from '../components/StatsView';
 
 import SessionContext from '../context/SessionContext';
+import * as SessionTypes from '../common/session_types';
 
 import {MaterialHeaderButtons, Item} from '../components/StandardHeaderButton';
 
@@ -63,7 +64,7 @@ export default class StatsAndSessionScreen extends React.Component{
 		});
 	}
 
-	renderSessionAndStatsView = (session) => {
+	renderSessionAndStatsView = (session: SessionTypes.Session) => {
 		return (
 			<View style={{flex: 1}}>
 				<StatsView stats={session.stats} numTimes={session.times.length} />
