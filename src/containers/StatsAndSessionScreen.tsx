@@ -9,13 +9,19 @@ import {
 
 import SessionView from '../components/SessionView';
 import StatsView from '../components/StatsView';
-
-import SessionContext from '../context/SessionContext';
-import * as SessionTypes from '../common/session_types';
-
 import {MaterialHeaderButtons, Item} from '../components/StandardHeaderButton';
 
-export default class StatsAndSessionScreen extends React.Component{
+import {withCurrentAndSavedSessions} from '../context';
+import * as SessionTypes from '../common/session_types';
+
+interface Props{
+	navigation: any,
+	savedSessions: SessionTypes.Session[],
+	savedSessionsActions: SessionTypes.SavedSessionsActions,
+	currentSession: SessionTypes.Session,
+}
+
+class StatsAndSessionScreen extends React.Component<Props>{
 
 	static navigationOptions = ({navigation, navigationOptions}) => {
 		return {
@@ -30,7 +36,7 @@ export default class StatsAndSessionScreen extends React.Component{
 					<Item
 					title="Clear"
 					color="white"
-					onPress={() => navigation.getParam('resetSessionDataToDefault')()}
+					onPress={() => navigation.getParam('resetCurrentSession')()}
 					/>
 				</MaterialHeaderButtons>
 			),
@@ -46,21 +52,10 @@ export default class StatsAndSessionScreen extends React.Component{
 		}
 	}
 
-	state = {
-		currentSession: {
-			name: 'Default',
-			times: [{
-				value: 123,
-				scramble: 'R'
-			}],
-			stats: []
-		}
-	};
-
 	componentDidMount(){
 		this.props.navigation.setParams({
-			resetSessionDataToDefault: this.props.resetSessionDataToDefault,
-			currentSession: this.state.currentSession
+			resetCurrentSession: () => this.props.savedSessionsActions.resetSession(this.props.currentSession),
+			currentSession: this.props.currentSession
 		});
 	}
 
@@ -74,23 +69,15 @@ export default class StatsAndSessionScreen extends React.Component{
 	}
 
 	render(){
+		const session = this.props.currentSession;
 		return (
 			<SafeAreaView style={{flex: 1}}>
 				<ScrollView>
-					<SessionContext.Provider value={this.state.currentSession}>
-						{this.renderSessionAndStatsView(this.state.currentSession)}
-					</SessionContext.Provider>
+					{this.renderSessionAndStatsView(session)}
 				</ScrollView>
 			</SafeAreaView>
 		);
 	}
 }
 
-/*
-const mapDispatchToProps = (dispatch) => ({
-	computeNewStats: () => dispatch(actions.computeStatsForCurrentSession()),
-	createNewSession: (name) => dispatch(actions.createNewSession(name)),
-	setCurrentSessionByName: (sessionName) => dispatch(actions.setCurrentSessionByName(sessionName)),
-	resetSessionDataToDefault: () => dispatch(actions.resetSessionDataToDefault()),
-});
-*/
+export default withCurrentAndSavedSessions(StatsAndSessionScreen);

@@ -33,6 +33,14 @@ export const DEFAULT_SESSION_STATE: SessionTypes.Session = {
 	]
 };
 
-export const DEFAULT_SAVED_SESSIONS_STATE = {
-	[DEFAULT_SESSION_STATE.name]: DEFAULT_SESSION_STATE,
+export const DEFAULT_SAVED_SESSIONS_STATE: SessionTypes.Session[] = [
+	DEFAULT_SESSION_STATE,
+];
+
+export const DEFAULT_SAVED_SESSIONS_ACTIONS: SessionTypes.SavedSessionsActions = {
+};
+
+export const DEFAULT_SAVED_SESSION_STATE_AND_ACTIONS = {
+	savedSessions: DEFAULT_SAVED_SESSIONS_STATE,
+	savedSessionsActions: DEFAULT_SAVED_SESSIONS_ACTIONS
 };

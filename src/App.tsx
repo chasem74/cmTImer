@@ -24,6 +24,11 @@ import TimerScreen from './containers/TimerScreen';
 import StatsAndSessionScreen from './containers/StatsAndSessionScreen';
 import NewSessionScreen from './containers/NewSessionScreen';
 
+import CurrentSessionContext from './context/CurrentSessionContext';
+import SavedSessionsContext from './context/SavedSessionsContext';
+import * as SessionTypes from './common/session_types';
+import Constants from './common/constants';
+
 const StatsNavigator = createStackNavigator({
 	stats: StatsAndSessionScreen,
 	new_session: {
@@ -80,19 +85,105 @@ const MainNavigator = createBottomTabNavigator({
 
 const AppContainer = createAppContainer(MainNavigator);
 
-export default class App extends React.Component {
+interface AppState{
+	currentSession: SessionTypes.Session,
+	savedSessions: SessionTypes.Session[],
+	savedSessionsActions: SessionTypes.SavedSessionsActions
+};
+
+export default class App extends React.Component<{}, AppState> {
+	constructor(props: object){
+		super(props);
+
+		this.state = {
+			currentSession: {
+				...Constants.State.DEFAULT_SESSION_STATE
+			},
+			savedSessions: [],
+			savedSessionsActions: {
+				setCurrentSession: this.setCurrentSession,
+				createNewSession: this.createNewSession,
+				resetSession: this.resetSession
+			}
+		};
+	}
+
+	componentDidMount(){
+		this.setState(({savedSessions, currentSession}) => {
+			return {
+				savedSessions: [...savedSessions, currentSession]
+			};
+		});
+	}
+
+	resetSession = (session: SessionTypes.Session) => {
+		this.setState(({savedSessions}) => {
+			const newCurrentSession = {
+				...Constants.State.DEFAULT_SESSION_STATE,
+				name: session.name
+			};
+
+			const currentIndex = savedSessions.findIndex(s => s.name === session.name);
+			const newSavedSessions = [...savedSessions];
+			newSavedSessions[currentIndex] = newCurrentSession;
+
+			return {
+				savedSessions: newSavedSessions,
+				currentSession: newCurrentSession
+			}
+		});
+	}
+
+	setCurrentSession = (sessionName: string) => {
+		const newCurrentSession = this.state.savedSessions.find(session => session.name === sessionName);
+		if(newCurrentSession !== undefined){
+			this.setState({currentSession: newCurrentSession});
+		}
+	}
+
+	createNewSession = (sessionName: string): SessionTypes.Session => {
+		const newSession = {
+			...Constants.State.DEFAULT_SESSION_STATE,
+			name: sessionName
+		};
+
+		this.setState(({savedSessions}) => ({
+			savedSessions: [
+				...savedSessions,
+				newSession
+			]
+		}), () => this.setState({currentSession: newSession}));
+
+		return newSession;
+	}
+
+
 	async componentWillMount(){
 		await Expo.Font.loadAsync({
 			'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
 			'Feather': require('@expo/vector-icons/fonts/Feather.ttf')
 		});
 	}
+/*
+	makeSavedSessionsArray = () => {
+		const savedSessionsArray: SessionTypes.Session[] = [];
+		for(let sessionName in this.state.savedSessions){
+			savedSessionsArray.push(this.state.savedSessions[sessionName] as SessionTypes.Session);
+		}
 
-	public render() {
+		return savedSessionsArray;
+	}
+
+*/	public render() {
+		const {currentSession, savedSessionsActions, savedSessions} = this.state;
 		return (
 			<View style={styles.container}>
 				<StatusBar barStyle="light-content" />
-				<AppContainer style={{flex: 1}} />
+				<SavedSessionsContext.Provider value={{savedSessions, savedSessionsActions}}>
+					<CurrentSessionContext.Provider value={currentSession}>
+						<AppContainer style={{flex: 1}} />
+					</CurrentSessionContext.Provider>
+				</SavedSessionsContext.Provider>
 			</View>
 		);
 	}

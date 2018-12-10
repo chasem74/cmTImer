@@ -7,19 +7,31 @@ import {
 } from 'react-native';
 
 import {
-	FormLabel,
+//	FormLabel,
 	FormInput,
-	FormValidationMessage,
+//	FormValidationMessage,
 	List,
 	ListItem
 } from 'react-native-elements';
 
 import {MaterialHeaderButtons, Item} from '../components/StandardHeaderButton';
 
-import SessionContext from '../context/SessionContext';
+import {withCurrentAndSavedSessions} from '../context';
 import * as SessionTypes from '../common/session_types';
 
-export default class NewSessionScreen extends React.Component {
+interface Props{
+	navigation: any,
+	savedSessions: SessionTypes.Session[],
+	savedSessionsActions: SessionTypes.SavedSessionsActions,
+	currentSession: SessionTypes.Session,
+}
+
+type State = {
+	selectedSessionName: string,
+	newSessionName: string
+};
+
+class NewSessionScreen extends React.Component<Props, State>{
 
 	static navigationOptions = ({navigation, navigationOptions}) => {
 		return {
@@ -36,41 +48,39 @@ export default class NewSessionScreen extends React.Component {
 		};
 	};
 
-	state = {
-		newSessionName: '',
-		selectedSessionName: ''
-	}
-
-	constructor(props){
+	constructor(props: Props){
 		super(props);
 
-		this.state.selectedSessionName = this.props.navigation.state.params.currentSession.name;
-	}
-
-	componentDidMount(){
+		this.state = {
+			selectedSessionName: props.currentSession.name,
+			newSessionName: ''
+		};
 	}
 
 	setSessionNameInput = (newSessionName: string) => {
 		this.setState({newSessionName});
 	}
 
-	onSubmitEditing = (sessions: object) => {
+	onSubmitEditing = () => {
 		const trimmedName = this.state.newSessionName.trim();
-		if(trimmedName !== ""){
-			if(sessions[trimmedName]){
-				Alert.alert('A session with that name already exists');
-			}else{
-//				this.props.createNewSession(trimmedName);
-//				this.props.setCurrentSessionByName(trimmedName);
-				this.props.navigation.pop();
-			}
+		if(trimmedName === ''){
+			Alert.alert('Name can not be empty!');
+			return;
 		}
+
+		if(this.props.savedSessions.find(session => session.name === trimmedName)){
+			Alert.alert('A session with that name already exists');
+			return;
+		}
+
+		this.props.savedSessionsActions.createNewSession(trimmedName);
+		this.props.navigation.pop();
 	}
 
 	onSelectSessionFromList = (selectedSessionName: string) => {
 		if(this.state.selectedSessionName !== selectedSessionName){
 			this.setState({selectedSessionName});
-		//	this.props.setCurrentSessionByName(selectedSessionName);
+			this.props.savedSessionsActions.setCurrentSession(selectedSessionName);
 			this.props.navigation.pop();
 		}
 	}
@@ -97,45 +107,29 @@ export default class NewSessionScreen extends React.Component {
 		}
 	}
 
-	renderSessions = (sessions: object) => {
-		let result = [];
-		for(var key in sessions){
-			if(sessions.hasOwnProperty(key)){
-				const session = sessions[key];
-				result.push(this.renderSession(session));
-			}
-		}
-		return result;
-	}
-
-	renderSessionsList = (sessions: object) => {
+	renderSessionsList = () => {
 		return (
 			<List>
-				{this.renderSessions(sessions)}
+				{this.props.savedSessions.map(session => this.renderSession(session))/*this.renderSessions(sessions)*/}
 			</List>
 		);
 	}
 
 	render(){
 		return(
-			<SessionContext.Consumer>
-			{session => (
-				<SafeAreaView style={{flex: 1}}>
-					<FormInput
-					inputStyle={styles.textInput}
-					value={this.state.newSessionName}
-					autoFocus
-					containerStyle={{margin: 15}}
-					returnKeyType="done"
-					placeholder="Session name"
-					onChangeText={this.setSessionNameInput}
-					onSubmitEditing={() => this.onSubmitEditing(sessions)}
-					/>
-
-					{this.renderSessionsList(session)}
-				</SafeAreaView>
-			)}
-			</SessionContext.Consumer>
+			<SafeAreaView style={{flex: 1}}>
+				<FormInput
+				inputStyle={styles.textInput}
+				value={this.state.newSessionName}
+				autoFocus
+				containerStyle={{margin: 15}}
+				returnKeyType="done"
+				placeholder="Session name"
+				onChangeText={this.setSessionNameInput}
+				onSubmitEditing={() => this.onSubmitEditing(this.props.savedSessions)}
+				/>
+				{this.renderSessionsList()}
+			</SafeAreaView>
 		);
 	}
 }
@@ -146,18 +140,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-/*const mapStateToProps = (state) => ({
-	currentSession: state.currentSession,
-	allSessions: state.savedSessions
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	createNewSession: (name) => {
-		dispatch(actions.createNewSession(name))
-	},
-	setCurrentSessionByName: (sessionName) => {
-		dispatch(actions.setCurrentSessionByName(sessionName))
-	},
-//	resetSessionDataToDefault: () => dispatch(actions.resetSessionDataToDefault()),
-});
-*/
+export default withCurrentAndSavedSessions(NewSessionScreen);
