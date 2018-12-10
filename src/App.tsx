@@ -103,7 +103,8 @@ export default class App extends React.Component<{}, AppState> {
 			sessionActions: {
 				setCurrentSession: this.setCurrentSession,
 				createNewSession: this.createNewSession,
-				resetSession: this.resetSession
+				resetSession: this.resetSession,
+				addTimeToSession: this.addTimeToSession
 			}
 		};
 	}
@@ -116,6 +117,11 @@ export default class App extends React.Component<{}, AppState> {
 		});
 	}
 
+	getSavedSessionFromName(sessionName: string){
+		const foundIndex = this.state.savedSessions.findIndex(session => session.name === sessionName);
+		return {session: this.state.savedSessions[foundIndex], index: foundIndex};
+	}
+
 	resetSession = (session: SessionTypes.Session) => {
 		this.setState(({savedSessions}) => {
 			const newCurrentSession = {
@@ -123,9 +129,9 @@ export default class App extends React.Component<{}, AppState> {
 				name: session.name
 			};
 
-			const currentIndex = savedSessions.findIndex(s => s.name === session.name);
+			const {index} = this.getSavedSessionFromName(session.name); //savedSessions.findIndex(s => s.name === session.name);
 			const newSavedSessions = [...savedSessions];
-			newSavedSessions[currentIndex] = newCurrentSession;
+			newSavedSessions[index] = newCurrentSession;
 
 			return {
 				savedSessions: newSavedSessions,
@@ -135,9 +141,9 @@ export default class App extends React.Component<{}, AppState> {
 	}
 
 	setCurrentSession = (sessionName: string) => {
-		const newCurrentSession = this.state.savedSessions.find(session => session.name === sessionName);
-		if(newCurrentSession !== undefined){
-			this.setState({currentSession: newCurrentSession});
+		const {session} = this.getSavedSessionFromName(sessionName); //this.state.savedSessions.find(session => session.name === sessionName);
+		if(session !== undefined){
+			this.setState({currentSession: session});
 		}
 	}
 
@@ -155,6 +161,26 @@ export default class App extends React.Component<{}, AppState> {
 		}), () => this.setState({currentSession: newSession}));
 
 		return newSession;
+	}
+
+	addTimeToSession = (time: SessionTypes.SessionTime, session: SessionTypes.Session) => {
+		const newTimes = [
+			...session.times,
+			time,
+		];
+
+		const {index} = this.getSavedSessionFromName(session.name);
+		const updatedSession = {...session, times: newTimes};
+
+		const newSavedSessions = [...this.state.savedSessions];
+		newSavedSessions[index] = updatedSession;
+		this.setState({
+			savedSessions: newSavedSessions
+		}, () => {
+			if(session.name === this.state.currentSession.name){
+				this.setState({currentSession: updatedSession});
+			}
+		});
 	}
 
 

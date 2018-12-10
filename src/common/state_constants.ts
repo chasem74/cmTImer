@@ -41,6 +41,7 @@ export const DEFAULT_SESSION_ACTIONS: SessionTypes.SessionStateActions = {
 	setCurrentSession: (sessionName: string) => {},
 	createNewSession: (sessionName: string): SessionTypes.Session => {return DEFAULT_SESSION_STATE},
 	resetSession: (session: SessionTypes.Session) => {},
+	addTimeToSession: (time: SessionTypes.SessionTime, session: SessionTypes.Session) => {}
 };
 
 export const DEFAULT_SAVED_SESSION_STATE_AND_ACTIONS = {

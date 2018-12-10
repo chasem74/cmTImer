@@ -13,7 +13,7 @@ import * as SessionTypes from '../common/session_types';
 
 export default ({name, times}) => {
 
-	function createListItemText(item: SessionTypes.SessionTime, index: number){
+	function createListItemText(item: SessionTypes.SessionTime, index: number): string{
 		return (index + 1) + '. ' + moment(item.value).format('mm:ss:SS');;
 	}
 

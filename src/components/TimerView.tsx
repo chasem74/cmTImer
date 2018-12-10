@@ -12,7 +12,12 @@ import Constants from '../common/constants';
 import {useTimerInterval} from '../common/hooks';
 import moment from 'moment';
 
-export default (props) => {
+interface Props{
+	onTimerDone?: (time: number, scramble: string) => void,
+	style?: StyleSheet | object
+}
+
+export default (props: Props) => {
 	const [backgroundColor, setBackgroundColor] = useState(Constants.UI.DEFAULT_TIMER_BACKGROUND_COLOR);
 	const {time, isRunning, resetTimer, startTimer, stopTimer} = useTimerInterval(50, false, () => {
 	});
@@ -29,6 +34,7 @@ export default (props) => {
 	function onTimerPress(){
 		if(isRunning){
 			stopTimer();
+			props.onTimerDone && props.onTimerDone(time, 'BLAH BLAH');
 		}
 	}
 
@@ -37,6 +43,7 @@ export default (props) => {
 			setIsHoldingDown(true);
 		}else{
 			stopTimer();
+			props.onTimerDone && props.onTimerDone(time, 'flsljsdlfsdj');
 		}
 	}
 

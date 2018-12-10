@@ -17,5 +17,6 @@ export type Session = {
 export interface SessionStateActions{
 	resetSession: (session: Session) => void,
 	createNewSession: (sessionName: string) => Session,
-	setCurrentSession: (sessionName: string) => void
+	setCurrentSession: (sessionName: string) => void,
+	addTimeToSession: (time: SessionTime, session: Session) => void
 }
