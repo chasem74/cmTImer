@@ -9,10 +9,11 @@ import {
 import {ListItem} from 'react-native-elements';
 
 import moment from 'moment';
+import * as SessionTypes from '../common/session_types';
 
 export default ({name, times}) => {
 
-	function createListItemText(item, index){
+	function createListItemText(item: SessionTypes.SessionTime, index: number){
 		return (index + 1) + '. ' + moment(item.value).format('mm:ss:SS');;
 	}
 

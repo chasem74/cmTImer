@@ -22,7 +22,7 @@ import * as SessionTypes from '../common/session_types';
 interface Props{
 	navigation: any,
 	savedSessions: SessionTypes.Session[],
-	savedSessionsActions: SessionTypes.SavedSessionsActions,
+	sessionActions: SessionTypes.SessionStateActions,
 	currentSession: SessionTypes.Session,
 }
 
@@ -73,14 +73,14 @@ class NewSessionScreen extends React.Component<Props, State>{
 			return;
 		}
 
-		this.props.savedSessionsActions.createNewSession(trimmedName);
+		this.props.sessionActions.createNewSession(trimmedName);
 		this.props.navigation.pop();
 	}
 
 	onSelectSessionFromList = (selectedSessionName: string) => {
 		if(this.state.selectedSessionName !== selectedSessionName){
 			this.setState({selectedSessionName});
-			this.props.savedSessionsActions.setCurrentSession(selectedSessionName);
+			this.props.sessionActions.setCurrentSession(selectedSessionName);
 			this.props.navigation.pop();
 		}
 	}

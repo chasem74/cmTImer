@@ -17,7 +17,7 @@ import * as SessionTypes from '../common/session_types';
 interface Props{
 	navigation: any,
 	savedSessions: SessionTypes.Session[],
-	savedSessionsActions: SessionTypes.SavedSessionsActions,
+	sessionActions: SessionTypes.SessionStateActions,
 	currentSession: SessionTypes.Session,
 }
 
@@ -54,7 +54,7 @@ class StatsAndSessionScreen extends React.Component<Props>{
 
 	componentDidMount(){
 		this.props.navigation.setParams({
-			resetCurrentSession: () => this.props.savedSessionsActions.resetSession(this.props.currentSession),
+			resetCurrentSession: () => this.props.sessionActions.resetSession(this.props.currentSession),
 			currentSession: this.props.currentSession
 		});
 	}

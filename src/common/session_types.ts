@@ -14,8 +14,8 @@ export type Session = {
 	stats: SessionStat[]
 };
 
-export interface SavedSessionsActions{
-	resetSession?: (session: Session) => void,
-	createNewSession?: (sessionName: string) => Session,
-	setCurrentSession?: (sessionName: string) => void
+export interface SessionStateActions{
+	resetSession: (session: Session) => void,
+	createNewSession: (sessionName: string) => Session,
+	setCurrentSession: (sessionName: string) => void
 }

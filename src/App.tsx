@@ -88,7 +88,7 @@ const AppContainer = createAppContainer(MainNavigator);
 interface AppState{
 	currentSession: SessionTypes.Session,
 	savedSessions: SessionTypes.Session[],
-	savedSessionsActions: SessionTypes.SavedSessionsActions
+	sessionActions: SessionTypes.SessionStateActions
 };
 
 export default class App extends React.Component<{}, AppState> {
@@ -100,7 +100,7 @@ export default class App extends React.Component<{}, AppState> {
 				...Constants.State.DEFAULT_SESSION_STATE
 			},
 			savedSessions: [],
-			savedSessionsActions: {
+			sessionActions: {
 				setCurrentSession: this.setCurrentSession,
 				createNewSession: this.createNewSession,
 				resetSession: this.resetSession
@@ -175,11 +175,11 @@ export default class App extends React.Component<{}, AppState> {
 	}
 
 */	public render() {
-		const {currentSession, savedSessionsActions, savedSessions} = this.state;
+		const {currentSession, sessionActions, savedSessions} = this.state;
 		return (
 			<View style={styles.container}>
 				<StatusBar barStyle="light-content" />
-				<SavedSessionsContext.Provider value={{savedSessions, savedSessionsActions}}>
+				<SavedSessionsContext.Provider value={{savedSessions, sessionActions}}>
 					<CurrentSessionContext.Provider value={currentSession}>
 						<AppContainer style={{flex: 1}} />
 					</CurrentSessionContext.Provider>
