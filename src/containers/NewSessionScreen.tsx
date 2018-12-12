@@ -126,7 +126,7 @@ class NewSessionScreen extends React.Component<Props, State>{
 				returnKeyType="done"
 				placeholder="Session name"
 				onChangeText={this.setSessionNameInput}
-				onSubmitEditing={() => this.onSubmitEditing(this.props.savedSessions)}
+				onSubmitEditing={() => this.onSubmitEditing()}
 				/>
 				{this.renderSessionsList()}
 			</SafeAreaView>

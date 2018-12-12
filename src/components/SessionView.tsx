@@ -19,7 +19,7 @@ export default ({name, times}) => {
 
 	function renderListItem({item, index}){
 		return (
-			<View>
+			<View style={{flex: 1}}>
 				<ListItem
 				key={index}
 				title={createListItemText(item, index)}
@@ -35,7 +35,7 @@ export default ({name, times}) => {
 			<SectionList
 			sections={[{data: times}]}
 			renderItem={renderListItem}
-			renderSectionHeader={({section}) => (<View style={styles.sessionListHeader}><Text>{name}</Text></View>)}
+			renderSectionHeader={() => (<View style={styles.sessionListHeader}><Text>{name}</Text></View>)}
 			keyExtractor={(item, index) => index.toString()}
 			/>
 		</View>

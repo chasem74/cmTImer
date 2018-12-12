@@ -7,6 +7,8 @@ import {
 	ScrollView,
 } from 'react-native';
 
+import {Divider} from 'react-native-elements';
+
 import SessionView from '../components/SessionView';
 import StatsView from '../components/StatsView';
 import {MaterialHeaderButtons, Item} from '../components/StandardHeaderButton';
@@ -59,22 +61,17 @@ class StatsAndSessionScreen extends React.Component<Props>{
 		});
 	}
 
-	renderSessionAndStatsView = (session: SessionTypes.Session) => {
-		return (
-			<View style={{flex: 1}}>
-				<StatsView stats={session.stats} numTimes={session.times.length} />
-				<SessionView name={session.name} times={session.times} />
-			</View>
-		);
-	}
-
 	render(){
 		const session = this.props.currentSession;
 		return (
-			<SafeAreaView style={{flex: 1}}>
-				<ScrollView>
-					{this.renderSessionAndStatsView(session)}
-				</ScrollView>
+			<SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+				<View style={{flex: 1}}>
+					<StatsView stats={session.stats} numTimes={session.times.length} />
+					<Divider style={{height: 2}}/>
+					<ScrollView style={{flex: 8, backgroundColor: 'white'}}>
+						<SessionView name={session.name} times={session.times} />
+					</ScrollView>
+				</View>
 			</SafeAreaView>
 		);
 	}

@@ -190,17 +190,8 @@ export default class App extends React.Component<{}, AppState> {
 			'Feather': require('@expo/vector-icons/fonts/Feather.ttf')
 		});
 	}
-/*
-	makeSavedSessionsArray = () => {
-		const savedSessionsArray: SessionTypes.Session[] = [];
-		for(let sessionName in this.state.savedSessions){
-			savedSessionsArray.push(this.state.savedSessions[sessionName] as SessionTypes.Session);
-		}
 
-		return savedSessionsArray;
-	}
-
-*/	public render() {
+	public render() {
 		const {currentSession, sessionActions, savedSessions} = this.state;
 		return (
 			<View style={styles.container}>

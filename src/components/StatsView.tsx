@@ -8,9 +8,9 @@ import {
 
 import moment from 'moment';
 
-export default ({stats, numTimes}) => {
+export default ({stats, numTimes, ...rest}) => {
 	return (
-		<View style={{flex: 1}}>
+		<View {...rest}>
 			<View style={styles.numberOfSolves}>
 				{
 					stats.map(stat => <Text key={stat.name}>{stat.name}: {moment(stat.value).format('mm:ss:SS')}</Text>)
