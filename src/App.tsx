@@ -12,6 +12,8 @@ import {
 	createStackNavigator
 } from 'react-navigation';
 
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+
 import {createAppContainer} from '@react-navigation/native'
 
 import {
@@ -47,40 +49,42 @@ const StatsNavigator = createStackNavigator({
 	}
 });
 
-const MainNavigator = createBottomTabNavigator({
+const MainNavigator = createMaterialBottomTabNavigator({
 	timer: {
 		screen: TimerScreen,
 		navigationOptions: {
 			title: 'Timer',
-			tabBarIcon: ({tintColor}) => <Entypo size={25} name="stopwatch" color={tintColor}/>
+			tabBarIcon: ({tintColor}) => <Entypo size={25} name="stopwatch" color={tintColor}/>,
+			tabBarColor: '#0055ff'
 		}
 	},
 	stats: {
 		screen: StatsNavigator,
 		navigationOptions: {
 			title: 'Stats',
-			tabBarIcon: ({tintColor}) => <FontAwesome size={25} name="bar-chart" color={tintColor}/>
+			tabBarIcon: ({tintColor}) => <FontAwesome size={25} name="bar-chart" color={tintColor}/>,
+			tabBarColor: '#ffa500'
 		}
 	},
 	help: {
 		screen: () => { return <View><Text>Hellppppp</Text></View>},
 		navigationOptions: {
 			title: 'Help',
-			tabBarIcon: ({tintColor}) => <Feather size={25} name="help-circle" color={tintColor}/>
+			tabBarIcon: ({tintColor}) => <Feather size={25} name="help-circle" color={tintColor}/>,
+			tabBarColor: '#dd1115'
 		}
 	},
 	more: {
 		screen: TimerScreen,
 		navigationOptions: {
 			title: 'More',
-			tabBarIcon: ({tintColor}) => <Feather size={25} name="more-horizontal" color={tintColor}/>
+			tabBarIcon: ({tintColor}) => <Feather size={25} name="more-horizontal" color={tintColor}/>,
+			tabBarColor: 'green'
 		}
 	}
 }, {
-	tabBarOptions: {
-		activeBackgroundColor: 'black',
-		inactiveBackgroundColor: 'black',
-	}
+	activeColor: 'white',
+	inactiveColor: 'black'
 });
 
 const AppContainer = createAppContainer(MainNavigator);
