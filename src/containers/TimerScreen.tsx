@@ -11,7 +11,7 @@ import {withCurrentAndSavedSessions} from '../context';
 class TimerScreen extends React.Component{
 	render(){
 		return (
-			<View style={{flex: 1}}>
+			<View style={{flex: 1, backgroundColor: 'black'}}>
 				<Scramble style={{flex: 1}} scramble="R' L U" />
 				<TimerView
 				style={{flex: 3}}

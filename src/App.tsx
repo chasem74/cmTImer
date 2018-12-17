@@ -55,7 +55,7 @@ const MainNavigator = createMaterialBottomTabNavigator({
 		navigationOptions: {
 			title: 'Timer',
 			tabBarIcon: ({tintColor}) => <Entypo size={25} name="stopwatch" color={tintColor}/>,
-			tabBarColor: '#0055ff'
+			tabBarColor: '#1a2'
 		}
 	},
 	stats: {
@@ -79,7 +79,7 @@ const MainNavigator = createMaterialBottomTabNavigator({
 		navigationOptions: {
 			title: 'More',
 			tabBarIcon: ({tintColor}) => <Feather size={25} name="more-horizontal" color={tintColor}/>,
-			tabBarColor: 'green'
+			tabBarColor: '#0055ff'
 		}
 	}
 }, {

@@ -19,8 +19,7 @@ interface Props{
 
 export default (props: Props) => {
 	const [backgroundColor, setBackgroundColor] = useState(Constants.UI.DEFAULT_TIMER_BACKGROUND_COLOR);
-	const {time, isRunning, resetTimer, startTimer, stopTimer} = useTimerInterval(50, false, () => {
-	});
+	const {time, isRunning, resetTimer, startTimer, stopTimer} = useTimerInterval(50, false, () => {});
 	const [isHoldingDown, setIsHoldingDown] = useState(false);
 
 	useEffect(() => {
