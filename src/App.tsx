@@ -199,6 +199,7 @@ export default class App extends React.Component<{}, AppState> {
 		const {currentSession, sessionActions, savedSessions} = this.state;
 		return (
 			<View style={styles.container}>
+				<Expo.KeepAwake />
 				<StatusBar barStyle="light-content" />
 				<SavedSessionsContext.Provider value={{savedSessions, sessionActions}}>
 					<CurrentSessionContext.Provider value={currentSession}>
