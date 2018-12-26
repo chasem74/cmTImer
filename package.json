@@ -10,7 +10,7 @@
   "dependencies": {
     "expo": "^31.0.2",
     "moment": "^2.22.2",
-    "react": "^16.7.0-alpha.2",
+    "react": "16.7.0-alpha-2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31-with-hooks-dangerzone.tar.gz",
     "react-native-elements": "^0.19.1",
     "react-native-paper": "^2.3.0",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/expo": "^31.0.1",
     "@types/expo__vector-icons": "^6.2.3",
-    "@types/react": "^16.7.13",
+    "@types/react": "16.7.13",
     "@types/react-native": "^0.57.17",
     "@types/react-native-elements": "^0.18.0",
     "@types/react-navigation": "^2.13.7",
